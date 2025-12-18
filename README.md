@@ -88,17 +88,17 @@ _Expected Response_
 
 _Default Configuration_
 
-## _Variable_ _Default Value_ _Description_
+## **Variable** **Default Value** **Description**
 
-## `DB_HOST` localhost Database host
+## `DB_HOST` | localhost | Database host
 
-## `DB_POST` 5432 Database port
+## `DB_POST` | 5432 | Database port
 
-## `DB_PASSWORD` postgres Database password
+## `DB_PASSWORD` | postgres Database | password
 
-## `DB_NAME` pokemon_db Database name
+## `DB_NAME` | pokemon_db | Database name
 
-`SERVER_PORT` 8080 API server port
+## `SERVER_PORT` | 8080 | API server port
 
 ---
 
