@@ -73,7 +73,8 @@ CONTAINER ID   IMAGE                COMMAND                  CREATED         STA
 
 _Test the API_
 
-```curl http://localhost:8080/health
+```
+curl http://localhost:8080/health
 
 ```
 
