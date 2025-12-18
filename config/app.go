@@ -17,17 +17,6 @@ type Config struct {
 // LoadConfig read from environment variables
 func LoadConfig() (*Config, error) {
 
-	// Check required field existence for .env before autoloads
-	dbPassword := os.Getenv("DB_PASSWORD")
-	if dbPassword == "" {
-		return nil, fmt.Errorf("DB_PASSWORD environment variable is required")
-	}
-
-	dbName := os.Getenv("DB_NAME")
-	if dbName == "" {
-		return nil, fmt.Errorf("DB_NAME environment variable is required")
-	}
-
 	// Env loading from system environment variables
 	config := &Config {
 		DBHost: getEnv("DB_HOST", "localhost"),
@@ -38,6 +27,10 @@ func LoadConfig() (*Config, error) {
 		ServerPort: getEnv("SERVER_PORT", "8080"),
 	}
 
+	if config.DBPassword == "postgres" {
+		fmt.Println("This is default password for test, change it later");
+	}
+	
 	// return config and nil error if success
 	return config, nil;
 }

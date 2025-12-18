@@ -3,7 +3,8 @@ package config
 import (
 	"database/sql"
 	"fmt"
-	//_ "github.com/lib/pq" // PostgreSQL driver like JDBC
+
+	_ "github.com/lib/pq" // PostgreSQL driver like JDBC
 )
 
 // ConnectDatabase establishes connection to PostgreSQL

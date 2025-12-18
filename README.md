@@ -2,58 +2,71 @@
 
 A Go REST API to make a working API that fetch public API https://pokeapi.co/ to give RESTFUL response to React Vite frontend
 
-This API uses Go and PostgreSQL stack, to use this API, readers must at least preinstall things listed below suitable with user's OS is it Windows or Linux:
+## Prerequisites
 
-1. `postgresql-server` and `postgresql-contrib`, tested using `dbeaver 25.2` with:
+- Go 1.21+, tested on `go1.25.5 X:nodwarf5 linux/amd64`
+- PostgreSQL 15, tested on `docker compose postgres 15-alpine`
+- Docker, tested on `29.0.4`, thus using `go1.25.4` by 18th December 2025
+- PokeAPI, accessible on 18th December 2025
 
-- `postgresql-private-libs-18.1-1.fc43.x86_64`
-- `postgresql-18.1-1.fc43.x86_64`
-- `postgresql-contrib-18.1-1.fc43.x86_64`
-- `postgresql-server-18.1-1.fc43.x86_64`
+The API was tested on Fedora 43 but following requirement should be compatible with Windows and MacOS in their own ways.
 
-2. Golang with `go1.25.5` version or equal, tested using
+## Installation
 
-- `go 1.25.5 X:nodwarf5 linux/amd64`
+### 1. Clone Repository
+
+`git clone https://github.com/deanAirre/pokeGOAPI`
+`cd pokeGOAPI`
+
+### 2. Install Go Dependencies
+
+`go mod download`
+
+### 3. Install Docker or Podman (For consistencies the readme will use Docker)
+
+`sudo dnf install docker docker-compose`
+or
+`sudo apt install docker.io docker-compose`
+
+### 4. Start Docker service to run PostgreSQL
+
+```
+# Start docker service
+sudo systemctl start docker
+sudo systemctl enable docker
+
+
+# Add user to docker group
+sudo usermod -a6 docker $USER
+newgrp docker
+```
+
+_For Windows / Mac:_
+
+- Install Docker Desktop from https://www.docker.com/products/docker-desktop/
 
 ---
 
-To run docker compose and get the .envs and setup postgreSQL database immediately
-`docker compose up -d`
+## Quick Start
 
-To run the API, use:
-`go run main.go`
+1. Start PostgreSQL Database
+   `docker compose up -d`
+2. Verify databse is running
+   `docker ps`
+3. Run the API Server
+   `go run main.go`
 
-## Little Notes for Linux Users
+Expected response:
 
-For linux users:
-
-### Start Docker
-
-`sudo systemctl start docker`
-
-### Stop Docker
-
-`sudo systemctl stop docker`
-
-### Restart Docker
-
-`sudo systemctl restart docker`
-
-### Check Docker status
-
-`sudo systemctl status docker`
-
-### Enable Docker on boot
-
-`sudo systemctl enable docker`
-
-### Disable Docker on boot
-
-`sudo systemctl disable docker`
-
-or add these envs manually
-
-```POSTGRES_USER: postgres
-POSTGRES_PASSWORD: postgres
-POSTGRES_DB: pokemon_db
+```docker ps
+CONTAINER ID   IMAGE                COMMAND                  CREATED         STATUS                            PORTS                                         NAMES
+975066d55033   postgres:15-alpine   "docker-entrypoint.s…"   4 seconds ago   Up 3 seconds (health: starting)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp   pokemongo-postgres
 ```
+
+````This is default password for test, change it later
+2025/12/18 14:57:15 Config loaded
+2025/12/18 14:57:15 Database connected
+2025/12/18 14:57:15 Migrations completed
+2025/12/18 14:57:15  Server starting on http://localhost:8080 ```
+
+````
