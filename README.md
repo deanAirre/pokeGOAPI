@@ -86,25 +86,17 @@ _Expected Response_
 
 ## Configuration
 
-_Default Configuration_
+### Default Configuration
 
-## **Variable** **Default Value** **Description**
-
-`DB_HOST` | localhost | Database host
-
-`DB_POST` | 5432 | Database port
-
-`DB_PASSWORD` | postgres Database | password
-
-`DB_NAME` | pokemon_db | Database name
-
-`SERVER_PORT` | 8080 | API server port
-
----
+| Variable      | Default Value     | Description     |
+| ------------- | ----------------- | --------------- |
+| `DB_HOST`     | localhost         | Database host   |
+| `DB_POST`     | 5432              | Database port   |
+| `DB_PASSWORD` | postgres Database | password        |
+| `DB_NAME`     | pokemon_db        | Database name   |
+| `SERVER_PORT` | 8080              | API server port |
 
 \*The default password are meant only for first installation, for later production it is recommended to change the password for better security.
-
---
 
 ## API Endpoints
 
