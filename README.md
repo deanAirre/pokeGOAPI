@@ -101,11 +101,9 @@ _Expected Response_
 
 ## API Endpoints
 
----
-
-## _Method_ _Endpoint_ _Description_
-
-GET /health Health check endpoint
+| Method      | Endpoint | Description    |
+| ----------- | -------- | -------------- |
+| GET /health | Health   | check endpoint |
 
 ## Various commands
 
