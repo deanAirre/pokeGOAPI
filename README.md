@@ -11,6 +11,8 @@ This API uses Go and PostgreSQL stack, to use this API, readers must at least pr
 - `postgresql-contrib-18.1-1.fc43.x86_64`
 - `postgresql-server-18.1-1.fc43.x86_64`
 
-2. Golang version go1.25.5, tested using `go1.25.5 X:nodwarf5 linux/amd64`
+2. Golang version go1.25.5, tested using
+
+- `go 1.25.5 X:nodwarf5 linux/amd64`
 
 through means suitable with user's OS is it Windows or Linux
