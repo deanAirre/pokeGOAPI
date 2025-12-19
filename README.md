@@ -178,16 +178,19 @@ Docker uses plenty of resources and personally recommended to be turned off in t
 
 ## Troubleshooting
 
-- "docker command not ofund"
-  Install docker following the installation steps above
+**\_"docker command not found"**
 
-- "permission denied while trying to connect to Docker
-  Add your user to the docker group (linux solution)
-  `sudo usermod -aG docker $USER`
-  `newgrp docker`
+Install docker following the installation steps above
 
-- "port 5432 is already in use"
-  Another PostgreSQL instance probably occupying the port, check your port with `lsof` or `ss` or `netstat`
+**\_"permission denied while trying to connect to Docker"**
+
+Add your user to the docker group (linux solution)
+`sudo usermod -aG docker $USER`
+`newgrp docker`
+
+**"port 5432 is already in use"**
+
+Another PostgreSQL instance probably occupying the port, check your port with `lsof` or `ss` or `netstat`
 
 ` sudo ss -tulpn | grep :5432`
 
@@ -202,10 +205,10 @@ or might as well clean the docker-compose and start it again if needed
 
 If necessary, or the port is necessarily occupied, change the port in `docker-compose.yml`
 
-- "container is restarting continously"
-  Check logs first with
-  `docker logs pokemongo-postgres`
-  `docker logs -f pokemongo-postgres`
+**"container is restarting continously"**
+Check logs first with
+`docker logs pokemongo-postgres`
+`docker logs -f pokemongo-postgres`
 
 Common causes:
 
@@ -217,7 +220,7 @@ Solution:
 `docker compose down -v`
 `docker compose up -d`
 
-"Failed to load config:DB_PASSWORD required"
+**"Failed to load config:DB_PASSWORD required"**
 Probable postgresql config issues, may want to check
 `psql -U postgres`
 or if it's already in Docker
