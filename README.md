@@ -101,9 +101,12 @@ _Expected Response_
 
 ## API Endpoints
 
-| Method      | Endpoint | Description    |
-| ----------- | -------- | -------------- |
-| GET /health | Health   | check endpoint |
+| Method                | Endpoint    | Description              |
+| --------------------- | ----------- | ------------------------ |
+| GET /health           | Health      | check endpoint           |
+| GET /api/pokemon      | pokemon     | list all gen V pokemon   |
+| GET /api/pokemon/:id  | pokemon/:id | get pokemon detail by id |
+| GET /api/pokemon/sync | sync        | sync data from pokeAPI   |
 
 ## Various commands
 
