@@ -14,9 +14,20 @@ type PokeAPIResponse struct {
 
 // Sprites contains Pokemon sprite URLs
 type Sprites struct {
+	FrontDefault string                     `json:"front_default"`
+	Other        Other                      `json:"other"`
+	Versions     map[string]GenVersions     `json:"versions"`
+}
+
+type GenVersions map[string]BlackWhiteSprites
+
+type BlackWhiteSprites struct {
+	Animated *AnimatedSprites `json:"animated,omitempty"`
+}
+
+type AnimatedSprites struct {
 	FrontDefault string `json:"front_default"`
-	FrontShiny   string `json:"front_shiny"`
-	Other        Other  `json:"other"`
+	BackDefault  string `json:"back_default"`
 }
 
 // Other contains additional sprite sources

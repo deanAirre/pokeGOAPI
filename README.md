@@ -71,19 +71,22 @@ CONTAINER ID   IMAGE                COMMAND                  CREATED         STA
 
 ````
 
-_Test the API_
+**Test the API**
 
 ```
 curl http://localhost:8080/health
 
 ```
 
-_Expected Response_
+**Expected Response**
 
 ```
 {"status":"healthy", "service":"pokemon-api"}
 
 ```
+
+**Fetch data first from pokeAPI**
+`curl -X POST http://localhost:8080/api/pokemon/sync`
 
 ## Configuration
 

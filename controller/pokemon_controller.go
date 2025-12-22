@@ -27,20 +27,67 @@ func (c *PokemonController) GetAllPokemon(w http.ResponseWriter, r *http.Request
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
-
-	pokemons, err := c.service.GetAllPokemon()
+	
+	// Parse query parameters
+	query := r.URL.Query()
+	
+	// Pagination
+	limit := 20
+	if l := query.Get("limit"); l != "" {
+		if parsed, err := strconv.Atoi(l); err == nil && parsed > 0 {
+			limit = parsed
+		}
+	}
+	
+	offset := 0
+	if o := query.Get("offset"); o != "" {
+		if parsed, err := strconv.Atoi(o); err == nil && parsed >= 0 {
+			offset = parsed
+		}
+	}
+	
+	// Or use page parameter
+	if p := query.Get("page"); p != "" {
+		if page, err := strconv.Atoi(p); err == nil && page > 0 {
+			offset = (page - 1) * limit
+		}
+	}
+	
+	// Sorting
+	sortBy := query.Get("sort")
+	if sortBy == "" {
+		sortBy = "pokedex_id"
+	}
+	
+	order := query.Get("order")
+	if order == "" {
+		order = "asc"
+	}
+	
+	// Filtering
+	typeFilter := query.Get("type")
+	
+	// Get paginated results
+	result, err := c.service.GetPokemonPaginated(limit, offset, sortBy, order, typeFilter)
 	if err != nil {
 		log.Printf("Error getting pokemon: %v", err)
 		http.Error(w, "Failed to retrieve pokemon", http.StatusInternalServerError)
 		return
 	}
-
+	
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"success": true,
-		"count":   len(pokemons),
-		"data":    pokemons,
+		"data":    result["data"],
+		"pagination": map[string]interface{}{
+			"total":        result["total"],
+			"page":         result["page"],
+			"limit":        result["limit"],
+			"total_pages":  result["total_pages"],
+			"has_next":     result["has_next"],
+			"has_previous": result["has_previous"],
+		},
 	})
 }
 
@@ -115,4 +162,25 @@ func HealthCheck(w http.ResponseWriter, r *http.Request) {
 		"status":  "healthy",
 		"service": "pokemon-api",
 	})
+}
+
+func (c *PokemonController) GetSyncStatus(w http.ResponseWriter, r *http.Request){
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	syncInfo, err := c.service.GetLastSyncInfo("gen5")
+	if err != nil {
+		log.Printf("Error getting sync status: %v", err)
+		http.Error(w, "Failed to get sync status", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]interface{}{
+	"success": true,
+	"data": syncInfo,
+})
 }

@@ -5,11 +5,12 @@ import "time"
 // Pokemon represents a Pokemon entity in the database
 type Pokemon struct {
 	ID         int       `json:"id"`
-	PokedexID  int       `json:"pokedex_id"`
 	Name       string    `json:"name"`
 	Height     int       `json:"height"`      // in decimeters
 	Weight     int       `json:"weight"`      // in hectograms
 	SpriteURL  string    `json:"sprite_url"`
+	AnimatedFront string `json:"animated_front"`
+	AnimatedBack string `json:"animated_back"`
 	CreatedAt  time.Time `json:"created_at"`
 }
 

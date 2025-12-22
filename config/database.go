@@ -40,6 +40,8 @@ func RunMigrations(db *sql.DB) error {
 			height INT,
 			weight INT,
 			sprite_url TEXT,
+			animated_front TEXT,
+    		animated_back TEXT,
 			created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 		)`,
 		
@@ -61,7 +63,15 @@ func RunMigrations(db *sql.DB) error {
 			slot INT NOT NULL,
 			UNIQUE(pokemon_id, slot)
 		)`,
-		
+		// Sync metadata table
+		`CREATE TABLE IF NOT EXISTS sync_metadata (
+			id SERIAL PRIMARY KEY,
+			sync_type VARCHAR(50) UNIQUE NOT NULL,
+			last_sync_at TIMESTAMP NOT NULL,
+			total_synced INT DEFAULT 0,
+			status VARCHAR(20) DEFAULT 'completed'
+		)`,
+
 		// Pokemon stats table
 		`CREATE TABLE IF NOT EXISTS pokemon_stats (
 			id SERIAL PRIMARY KEY,
@@ -81,6 +91,7 @@ func RunMigrations(db *sql.DB) error {
 		`CREATE INDEX IF NOT EXISTS idx_pokemon_types_pokemon_id ON pokemon_types(pokemon_id)`,
 		`CREATE INDEX IF NOT EXISTS idx_pokemon_abilities_pokemon_id ON pokemon_abilities(pokemon_id)`,
 		`CREATE INDEX IF NOT EXISTS idx_pokemon_stats_pokemon_id ON pokemon_stats(pokemon_id)`,
+		`CREATE INDEX IF NOT EXISTS idx_pokemon_types_type_name ON pokemon_types(type_name)`,
 	}
 
 	// Execute each migration
